@@ -1,24 +1,24 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { Button } from './components/Button';
-import { MovieCard } from './components/MovieCard';
 import { SideBar } from './components/SideBar';
 import { Content } from './components/Content';
 
-
 import './styles/global.scss';
-
-import './styles/sidebar.scss';
-import './styles/content.scss';
-
 
 export function App() {
   const [selectedGenreId, setSelectedGenreId] = useState(1);
 
+  const selectedId = useCallback((id: number) => {
+    return setSelectedGenreId(id)
+  }, [selectedGenreId])
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <SideBar selectedGenreId={selectedGenreId} setSelectedGenreId={setSelectedGenreId} />
+      <SideBar
+        selectedGenreId={selectedGenreId}
+        setSelectedGenreId={selectedId}
+      />
+
       <Content selectedGenreId={selectedGenreId} />
     </div>
   )
